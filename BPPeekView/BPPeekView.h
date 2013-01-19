@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define PEEKCELLIDENTIFIER @"peekCell"
+
 @class BPPeekView;
 @protocol BPPeekViewDelegate <NSObject>
 
@@ -23,9 +25,10 @@
 
 @interface BPPeekView : UIView
 
-@property BOOL animateRowHighlight;
+@property BOOL actionRowEnabled;
 @property (weak) id<BPPeekViewDelegate> delegate;
-@property BOOL showActionRow;
+@property BOOL peekHighlighedViewController;
+@property BOOL rowHighlightAnimated;
 @property NSArray *viewControllers;
 
 @end

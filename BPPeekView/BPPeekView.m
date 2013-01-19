@@ -48,8 +48,9 @@
     if (self) {
         
         self.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-        self.showActionRow = NO;
-        self.animateRowHighlight = YES;
+        self.actionRowEnabled = NO;
+        self.peekHighlighedViewController = YES;
+        self.rowHighlightAnimated = YES;
         
         self.viewControllersTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         self.viewControllersTableView.dataSource = self;
@@ -61,6 +62,7 @@
         
         self.toolbarTitleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         self.toolbarTitleLabel.backgroundColor = [UIColor clearColor];
+        self.toolbarTitleLabel.textColor = [UIColor whiteColor];
         self.toolbarTitleLabel.text = self.topViewController.title;
         self.toolbarTitleLabel.textAlignment = NSTextAlignmentCenter;
         
@@ -81,7 +83,7 @@
 
 - (void)layoutSubviews
 {
-    
+    if (!self.toolbarTitleLabel.text.length) self.toolbarTitleLabel.text = self.topViewController.title;
     self.bounds = CGRectMake(0, 0, self.superview.bounds.size.width, self.superview.bounds.size.height);
     
     CGRect peek;
@@ -138,7 +140,7 @@
         if (self.viewControllersTableView.frame.origin.y < -TITLE_SHELF_HEIGHT) {
             self.viewControllersTableView.frame = CGRectMake(0, -TITLE_SHELF_HEIGHT, self.viewControllersTableView.bounds.size.width, self.viewControllersTableView.bounds.size.height);
         }
-
+        
         for (UIViewController *vc in self.viewControllers) {
             if (vc.view.frame.origin.y < PEEK_HEIGHT) {
                 vc.view.frame = CGRectMake(0, PEEK_HEIGHT, vc.view.bounds.size.width, vc.view.bounds.size.height);
@@ -147,26 +149,32 @@
                 vc.view.frame = CGRectMake(0, (TITLE_SHELF_HEIGHT + PEEK_HEIGHT), vc.view.bounds.size.width, vc.view.bounds.size.height);
             }
         }
-
+        
         int index = [self indexForOffset:self.toolbar.frame.origin.y];
         
         UITableViewCell *selectedCell = [self.viewControllersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-        [selectedCell setHighlighted:YES animated:self.animateRowHighlight];
+        [selectedCell setHighlighted:YES animated:self.rowHighlightAnimated];
         for (int i=0; i<self.viewControllers.count; i++) {
             UITableViewCell *deselectedCell = [self.viewControllersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-            if (![deselectedCell isEqual:selectedCell]) [deselectedCell setHighlighted:NO animated:self.animateRowHighlight];
+            if (![deselectedCell isEqual:selectedCell]) [deselectedCell setHighlighted:NO animated:self.rowHighlightAnimated];
         }
         
-        UIViewController *newTopViewController = self.viewControllers[index];
-        if (![self.topViewController isEqual:newTopViewController]) {
-            self.topViewController = newTopViewController;
+        if (self.peekHighlighedViewController) {
+            UIViewController *newTopViewController = self.viewControllers[index];
+            if (![self.topViewController isEqual:newTopViewController] && !(index == 0  && self.actionRowEnabled)) {
+                self.topViewController = newTopViewController;
+            }
         }
-
+        
         [recognizer setTranslation:CGPointZero inView:self];
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
         int index = [self indexForOffset:self.toolbar.frame.origin.y];
-        self.topViewController = self.viewControllers[index];
-    
+
+        UIViewController *newTopViewController = self.viewControllers[index];
+        if (![self.topViewController isEqual:newTopViewController] && !(index == 0  && self.actionRowEnabled)) {
+            self.topViewController = newTopViewController;
+        }
+        
         for (UIViewController *vc in self.viewControllers) {
             CGRect handleFrame = self.toolbar.frame;
             handleFrame.origin.y = 0;
@@ -182,7 +190,13 @@
         
         for (int i=0; i<self.viewControllers.count; i++) {
             UITableViewCell *deselectedCell = [self.viewControllersTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-            [deselectedCell setHighlighted:NO animated:self.animateRowHighlight];
+            [deselectedCell setHighlighted:NO animated:self.rowHighlightAnimated];
+        }
+        
+        if (index == 0 && self.actionRowEnabled) {
+            if ([self.delegate respondsToSelector:@selector(didSelectActionRowInPeekView:)]) {
+                [self.delegate didSelectActionRowInPeekView:self];
+            }
         }
         
         _animating = NO;
@@ -232,8 +246,7 @@
 - (void)setViewControllers:(NSArray *)viewControllers
 {
     _viewControllers = [NSArray arrayWithArray:viewControllers];
-    int total = (self.showActionRow ? _viewControllers.count + 1 : _viewControllers.count);
-    for (int i=0; i<total; i++) {
+    for (int i=0; i<self.viewControllers.count; i++) {
         UIViewController *vc = _viewControllers[i];
         vc.tabBarItem.tag = i;
         [self addSubview:vc.view];
@@ -252,16 +265,18 @@
     [self _setup];
 }
 
-- (BOOL)showActionRow
+- (BOOL)actionRowEnabled
 {
     return _showActionRow;
 }
 
-- (void)setShowActionRow:(BOOL)showActionRow
+- (void)setActionRowEnabled:(BOOL)showActionRow
 {
     _showActionRow = showActionRow;
     if (_showActionRow) {
-        NSArray *viewControllers = [NSArray arrayWithArray:self.viewControllers];
+        UIViewController *actionVC = [[UIViewController alloc] init];
+        NSMutableArray *viewControllers = @[actionVC].mutableCopy;
+        [viewControllers addObjectsFromArray:self.viewControllers];
         self.viewControllers = viewControllers;
     }
 }
@@ -300,12 +315,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"peekCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:PEEKCELLIDENTIFIER];
     if (!cell) {
         if ([self.delegate respondsToSelector:@selector(cellForRowAtIndex:inPeekView:)]) {
             cell = [self.delegate cellForRowAtIndex:indexPath.row inPeekView:self];
         } else {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"peekCell"];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:PEEKCELLIDENTIFIER];
         }
     }
     

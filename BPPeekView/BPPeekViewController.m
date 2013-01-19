@@ -27,8 +27,10 @@
         self.viewControllers = [NSArray arrayWithArray:viewControllers];
         self.peekView = [[BPPeekView alloc] initWithFrame:self.view.bounds];
         self.peekView.viewControllers = self.viewControllers;
-        self.peekView.showActionRow = YES;
+        self.peekView.actionRowEnabled = YES;
         self.peekView.delegate = self;
+        self.peekView.peekHighlighedViewController = YES;
+        self.peekView.rowHighlightAnimated = NO;
         [self.view addSubview:self.peekView];
     }
     return self;
@@ -36,7 +38,10 @@
 
 - (NSString *)titleForViewControllerAtIndex:(NSInteger)index inPeekView:(BPPeekView *)peekView
 {
-    return [NSString stringWithFormat:@"title yay %i", index];
+    NSString *stringToReturn = @"";
+    if (index == 0) stringToReturn = @"ACTION ROW";
+    else stringToReturn = ((UIViewController*)self.peekView.viewControllers[index]).title;
+    return stringToReturn;
 }
 
 - (CGFloat)heightForRowsInPeekView:(BPPeekView *)peekView
@@ -46,7 +51,15 @@
 
 - (void)didSelectActionRowInPeekView:(BPPeekView *)peekView
 {
-    NSLog(@"action row!");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"Action Fired" delegate:nil cancelButtonTitle:@"CANCEL" otherButtonTitles:@"OK", nil];
+    [alertView show];
+}
+
+- (UITableViewCell *)cellForRowAtIndex:(NSInteger)index inPeekView:(BPPeekView *)peekView
+{
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:PEEKCELLIDENTIFIER];
+    cell.backgroundColor = [UIColor orangeColor];
+    return cell;
 }
 
 @end
