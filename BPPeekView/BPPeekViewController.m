@@ -9,10 +9,12 @@
 #import "BPPeekViewController.h"
 #import "BPPeekView.h"
 
-@interface BPPeekViewController ()
+@interface BPPeekViewController () <BPPeekViewDelegate>
 {
     NSArray *_viewControllers;
 }
+
+@property BPPeekView *peekView;
 
 @end
 
@@ -23,27 +25,28 @@
     self = [super initWithNibName:nil bundle:nil];
     if (self) {
         self.viewControllers = [NSArray arrayWithArray:viewControllers];
+        self.peekView = [[BPPeekView alloc] initWithFrame:self.view.bounds];
+        self.peekView.viewControllers = self.viewControllers;
+        self.peekView.showActionRow = YES;
+        self.peekView.delegate = self;
+        [self.view addSubview:self.peekView];
     }
     return self;
 }
 
-- (void)loadView
+- (NSString *)titleForViewControllerAtIndex:(NSInteger)index inPeekView:(BPPeekView *)peekView
 {
-    self.view = [[BPPeekView alloc] initWithPeekViewController:self];
+    return [NSString stringWithFormat:@"title yay %i", index];
 }
 
-#pragma mark - Mutators
-- (NSArray *)viewControllers
+- (CGFloat)heightForRowsInPeekView:(BPPeekView *)peekView
 {
-    if (!_viewControllers) _viewControllers = @[];
-    return _viewControllers;
+    return 44.f;
 }
 
-- (void)setViewControllers:(NSArray *)viewControllers
+- (void)didSelectActionRowInPeekView:(BPPeekView *)peekView
 {
-    _viewControllers = viewControllers;
-    self.view = [[BPPeekView alloc] initWithPeekViewController:self];
+    NSLog(@"action row!");
 }
-
 
 @end
