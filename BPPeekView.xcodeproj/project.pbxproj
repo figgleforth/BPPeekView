@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		51434C1316AA6AFF00A220B8 /* BPPeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51434C1216AA6AFF00A220B8 /* BPPeekView.m */; };
+		51434C1616AA6F5700A220B8 /* BPBlueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51434C1516AA6F5700A220B8 /* BPBlueViewController.m */; };
+		51434C1916AA6F6400A220B8 /* BPRedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51434C1816AA6F6400A220B8 /* BPRedViewController.m */; };
+		51434C1C16AA6F7200A220B8 /* BPGreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51434C1B16AA6F7200A220B8 /* BPGreenViewController.m */; };
+		51434C1F16AA6F7C00A220B8 /* BPYellowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51434C1E16AA6F7C00A220B8 /* BPYellowViewController.m */; };
+		51434C2116AA734C00A220B8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51434C2016AA734C00A220B8 /* QuartzCore.framework */; };
 		51FFBD3616AA6035008F22E2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51FFBD3516AA6035008F22E2 /* UIKit.framework */; };
 		51FFBD3816AA6035008F22E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51FFBD3716AA6035008F22E2 /* Foundation.framework */; };
 		51FFBD3A16AA6035008F22E2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51FFBD3916AA6035008F22E2 /* CoreGraphics.framework */; };
@@ -16,9 +22,21 @@
 		51FFBD4816AA6035008F22E2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 51FFBD4716AA6035008F22E2 /* Default.png */; };
 		51FFBD4A16AA6035008F22E2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51FFBD4916AA6035008F22E2 /* Default@2x.png */; };
 		51FFBD4C16AA6035008F22E2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 51FFBD4B16AA6035008F22E2 /* Default-568h@2x.png */; };
+		51FFBD5416AA69C2008F22E2 /* BPPeekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 51FFBD5316AA69C2008F22E2 /* BPPeekViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		51434C1116AA6AFF00A220B8 /* BPPeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPPeekView.h; sourceTree = "<group>"; };
+		51434C1216AA6AFF00A220B8 /* BPPeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPPeekView.m; sourceTree = "<group>"; };
+		51434C1416AA6F5700A220B8 /* BPBlueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBlueViewController.h; sourceTree = "<group>"; };
+		51434C1516AA6F5700A220B8 /* BPBlueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBlueViewController.m; sourceTree = "<group>"; };
+		51434C1716AA6F6400A220B8 /* BPRedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPRedViewController.h; sourceTree = "<group>"; };
+		51434C1816AA6F6400A220B8 /* BPRedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPRedViewController.m; sourceTree = "<group>"; };
+		51434C1A16AA6F7200A220B8 /* BPGreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPGreenViewController.h; sourceTree = "<group>"; };
+		51434C1B16AA6F7200A220B8 /* BPGreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPGreenViewController.m; sourceTree = "<group>"; };
+		51434C1D16AA6F7C00A220B8 /* BPYellowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPYellowViewController.h; sourceTree = "<group>"; };
+		51434C1E16AA6F7C00A220B8 /* BPYellowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPYellowViewController.m; sourceTree = "<group>"; };
+		51434C2016AA734C00A220B8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		51FFBD3216AA6035008F22E2 /* BPPeekView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BPPeekView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		51FFBD3516AA6035008F22E2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		51FFBD3716AA6035008F22E2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -32,6 +50,8 @@
 		51FFBD4716AA6035008F22E2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		51FFBD4916AA6035008F22E2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		51FFBD4B16AA6035008F22E2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		51FFBD5216AA69C2008F22E2 /* BPPeekViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPPeekViewController.h; sourceTree = "<group>"; };
+		51FFBD5316AA69C2008F22E2 /* BPPeekViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPPeekViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				51434C2116AA734C00A220B8 /* QuartzCore.framework in Frameworks */,
 				51FFBD3616AA6035008F22E2 /* UIKit.framework in Frameworks */,
 				51FFBD3816AA6035008F22E2 /* Foundation.framework in Frameworks */,
 				51FFBD3A16AA6035008F22E2 /* CoreGraphics.framework in Frameworks */,
@@ -68,6 +89,7 @@
 		51FFBD3416AA6035008F22E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51434C2016AA734C00A220B8 /* QuartzCore.framework */,
 				51FFBD3516AA6035008F22E2 /* UIKit.framework */,
 				51FFBD3716AA6035008F22E2 /* Foundation.framework */,
 				51FFBD3916AA6035008F22E2 /* CoreGraphics.framework */,
@@ -81,6 +103,18 @@
 				51FFBD4416AA6035008F22E2 /* BPAppDelegate.h */,
 				51FFBD4516AA6035008F22E2 /* BPAppDelegate.m */,
 				51FFBD3C16AA6035008F22E2 /* Supporting Files */,
+				51FFBD5216AA69C2008F22E2 /* BPPeekViewController.h */,
+				51FFBD5316AA69C2008F22E2 /* BPPeekViewController.m */,
+				51434C1116AA6AFF00A220B8 /* BPPeekView.h */,
+				51434C1216AA6AFF00A220B8 /* BPPeekView.m */,
+				51434C1416AA6F5700A220B8 /* BPBlueViewController.h */,
+				51434C1516AA6F5700A220B8 /* BPBlueViewController.m */,
+				51434C1716AA6F6400A220B8 /* BPRedViewController.h */,
+				51434C1816AA6F6400A220B8 /* BPRedViewController.m */,
+				51434C1A16AA6F7200A220B8 /* BPGreenViewController.h */,
+				51434C1B16AA6F7200A220B8 /* BPGreenViewController.m */,
+				51434C1D16AA6F7C00A220B8 /* BPYellowViewController.h */,
+				51434C1E16AA6F7C00A220B8 /* BPYellowViewController.m */,
 			);
 			path = BPPeekView;
 			sourceTree = "<group>";
@@ -167,6 +201,12 @@
 			files = (
 				51FFBD4216AA6035008F22E2 /* main.m in Sources */,
 				51FFBD4616AA6035008F22E2 /* BPAppDelegate.m in Sources */,
+				51FFBD5416AA69C2008F22E2 /* BPPeekViewController.m in Sources */,
+				51434C1316AA6AFF00A220B8 /* BPPeekView.m in Sources */,
+				51434C1616AA6F5700A220B8 /* BPBlueViewController.m in Sources */,
+				51434C1916AA6F6400A220B8 /* BPRedViewController.m in Sources */,
+				51434C1C16AA6F7200A220B8 /* BPGreenViewController.m in Sources */,
+				51434C1F16AA6F7C00A220B8 /* BPYellowViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +323,7 @@
 				51FFBD5116AA6035008F22E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

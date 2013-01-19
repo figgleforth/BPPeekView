@@ -7,13 +7,38 @@
 //
 
 #import "BPAppDelegate.h"
+#import "BPPeekViewController.h"
+#import "BPBlueViewController.h"
+#import "BPRedViewController.h"
+#import "BPGreenViewController.h"
+#import "BPYellowViewController.h"
 
 @implementation BPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+
+    BPBlueViewController *blue = [[BPBlueViewController alloc] initWithNibName:nil bundle:nil];
+    BPRedViewController *red = [[BPRedViewController alloc] initWithNibName:nil bundle:nil];
+    BPGreenViewController *green = [[BPGreenViewController alloc] initWithNibName:nil bundle:nil];
+    BPYellowViewController *yellow = [[BPYellowViewController alloc] initWithNibName:nil bundle:nil];
+    
+    BPPeekViewController *peekViewController = [[BPPeekViewController alloc] initWithViewControllers:@[blue, red, green, yellow]];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:peekViewController];
+    
+    UITabBarController *tabController = [[UITabBarController alloc] initWithNibName:nil bundle:nil];
+    tabController.viewControllers = @[navController];
+    
+    double delayInSeconds = 5.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        peekViewController.viewControllers = @[yellow, green, red, blue];
+    });
+    
+    self.window.rootViewController = peekViewController;
+    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
